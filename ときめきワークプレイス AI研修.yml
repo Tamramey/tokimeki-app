@@ -1,0 +1,198 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  icon_type: emoji
+  mode: advanced-chat
+  name: ときめきワークプレイス AI研修
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/openai:1.0.5@51583313a5988d5dca405063831ffeeacdc1f2e95f32a8c10b4c281ceef39ebb
+    version: null
+kind: app
+version: 0.7.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 50
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        knowledge_file_size_limit: 15
+        single_chunk_attachment_limit: 10
+        skill_file_size_limit: 50
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: llm
+      id: 1789733529418-llm
+      source: '1789733529418'
+      sourceHandle: source
+      target: llm
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: llm-answer
+      source: llm
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: ユーザー入力
+        type: start
+        variables: []
+      height: 72
+      id: '1789733529418'
+      position:
+        x: 80
+        y: 282
+      positionAbsolute:
+        x: 80
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        memory:
+          query_prompt_template: '{{#sys.query#}}
+
+
+            {{#sys.files#}}'
+          role_prefix:
+            assistant: ''
+            user: ''
+          window:
+            enabled: false
+            size: 10
+        model:
+          completion_params:
+            temperature: 0.7
+          mode: chat
+          name: gpt-5.6-sol
+          provider: langgenius/openai/openai
+        prompt_template:
+        - id: 180a76ee-3436-4694-8f93-7a23e49f2b0b
+          role: system
+          text: "# 役割\nあなたは飲食店（カフェ・レストラン）の新人研修シミュレーションゲーム『ときめきワークプレイス』のゲームマスター兼「頼れる先輩店長（名前：佐藤）」です。\n\
+            プレイヤー（新人スタッフ）の応答に応じて、店舗での日常・トラブル・接客シーンを提示し、パラメータの変化と親愛度の変化をシミュレートしてください。\n\
+            \n# ゲームシステムとパラメータ\n以下のパラメータを内部で保持・計算し、ターンの最後に表示してください。\n- 接客力（初期値: 10）\n\
+            - 調理スキル（初期値: 10）\n- 疲労度（初期値: 0 / 100になるとミスが発生しやすくなる）\n- 店長（佐藤）の好感度（初期値:\
+            \ 20）\n\n# 1ターンの進行フロー\nユーザーから返答があるたびに、以下の要素を含めて出力してください：\n\n1. 【状況説明】：現在の状況（ランチピーク、料理のミス、常連客の対応など）を説明する。\n\
+            2. 【店長（佐藤）の台詞】：指導またはアドバイス（優しくも少し厳しい頼れる先輩口調）。\n# 画像表示ルール\n会話の状況に合わせて、以下の画像URLを文頭に表示してください。\n\
+            # ゲームの終了（エンディング）ルール\n・全10ターンで研修期間が終了します。現在何ターン目かを内部で管理してください。\n・10ターン目に達したら、それまでに蓄積されたパラメータ（接客力・調理スキル・好感度）を集計し、以下のエンディングを出力してゲームを終了してください。\n\
+            \n【10ターン目のエンディング分岐】\n1. 接客力20以上 ＋ 好感度15以上：\n   → トゥルーエンド「佐藤店長からの最高のパートナー認定」\n\
+            2. スキル合計が15以上：\n   → ノーマルエンド「一人前スタッフへの第一歩」\n3. それ以外：\n   → レスキューエンド「佐藤店長の熱血（優しい）再研修」\n\
+            # 画像表示ルール\n返信する際は、必ず文頭に以下の画像マークダウンを出力してください。\n\n・佐藤店長が話すとき：\n![佐藤店長]#\
+            \ 画像表示ルール\n返信する際は、必ず回答の1行目（先頭）に以下の画像マークダウンを出力してください。\n\n# 画像表示ルール\n返信する際は、必ず文頭に以下の画像マークダウンを改行せずに1行で出力してください。\n\
+            \n\n\n・佐藤店長が話す・指導するとき：\n![佐藤店長](https://lh3.googleusercontent.com/d/1AfCDDR1gdsXg_RX9H3zdN0BtfQ879kTg)\n\
+            \n・新人（プレイヤー）の行動結果・反応のとき：\n![新人](https://lh3.googleusercontent.com/d/https://ibb.co/Tq7JD1Ff)\n"
+        - id: 782c8fd0-81ad-4194-9fab-66e46b579ab0
+          role: user
+          text: ''
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 87
+      id: llm
+      position:
+        x: 380
+        y: 282
+      positionAbsolute:
+        x: 380
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    - data:
+        answer: '{{#llm.text#}}'
+        selected: false
+        title: 回答
+        type: answer
+        variables: []
+      height: 101
+      id: answer
+      position:
+        x: 680
+        y: 282
+      positionAbsolute:
+        x: 680
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 0
+    viewport:
+      x: -351.19412718669105
+      y: 127.47387045280675
+      zoom: 1.0496242214235698
+  rag_pipeline_variables: []
