@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ときめきワークプレイス</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            border: 2px solid #ff4081;
+        }
+        h1 {
+            font-size: 1.5rem;
+            margin: 0 0 10px 0;
+            color: #ff4081;
+        }
+        p {
+            font-size: 0.9rem;
+            color: #bbb;
+            margin: 0 0 15px 0;
+        }
+        .btn {
+            padding: 10px 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(45deg, #ff4081, #ff80ab);
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 音楽プレイヤーエリア -->
+    <div class="header">
+        <h1>ダイヤモンド（プリンセス プリンセス）</h1>
+        <p>編成：ギター / トロンボーン / ドラム</p>
+        <button class="btn" id="playBtn" onclick="togglePlay()">♪ 演奏スタート / 停止</button>
+    </div>
+
+    <!-- Dify公式チャットボット表示用スクリプト -->
+    <script>
+     window.difyChatbotConfig = {
+      token: '1jO81Ij9u6xYpFET'
+     }
+    </script>
+    <script
+     src="https://udify.app/embed.min.js"
+     id="1jO81Ij9u6xYpFET"
+     defer>
+    </script>
+
+    <script>
+        // 音楽再生用の処理をここに追加できます
+    </script>
+</body>
+</html>
