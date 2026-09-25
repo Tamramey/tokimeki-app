@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ときめきワークプレイス</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #2a2a2a;
+            border-radius: 10px;
+            border: 2px solid #ff4081;
+        }
+        h1 {
+            font-size: 1.5rem;
+            color: #ff4081;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+        .btn {
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+        .btn:hover {
+            background-color: #e0356f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>ダイヤモンド（プリンセス プリンセス）</h1>
+        <p>編成：ギター / トロンボーン / ドラム</p>
+        <button class="btn" onclick="togglePlay()">♪ 演奏スタート / 停止</button>
+    </div>
+
+    <!-- 音源ファイル（必要に応じてファイル名を変更してください） -->
+    <audio id="bgm" src="diamonds.mp3" loop></audio>
+
+    <script>
+        function togglePlay() {
+            var audio = document.getElementById("bgm");
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }
+    </script>
+
+    <!-- Dify 埋め込みスクリプト -->
+    <script>
+     window.difyChatbotConfig = {
+      token: '1jO81Ij9u6xYpFET',
+      baseUrl: 'https://udify.app'
+     }
+    </script>
+    <script
+     src="https://udify.app/embed.min.js"
+     id="1jO81Ij9u6xYpFET"
+     defer>
+    </script>
+
+</body>
+</html>
